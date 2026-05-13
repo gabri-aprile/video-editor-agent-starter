@@ -1,0 +1,25 @@
+{
+  "name": "video-editor-agent-starter",
+  "version": "0.1.0",
+  "description": "Starter per costruire un agente Claude Code video editor (Reel 9:16) basato su Hyperframes",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "demo": "npx hyperframes init demo-scene && cd demo-scene && npx hyperframes render",
+    "preview": "npx hyperframes preview",
+    "render": "npx hyperframes render",
+    "transcribe": "node scripts/01_transcribe.mjs",
+    "plan": "node scripts/02_plan_broll.mjs",
+    "fetch": "node scripts/03_fetch_assets.mjs",
+    "compose": "node scripts/04_render.mjs",
+    "post": "node scripts/05_post.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.30.0",
+    "dotenv": "^16.4.0",
+    "hyperframes": "latest"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "_doc": "Sostituisci i valori con i tuoi colori brand. Tieni nomi e struttura per non rompere riferimenti negli script.",
+  "primary": "#0A0A0A",
+  "secondary": "#FFFFFF",
+  "accent_1": "#FF3DBE",
+  "accent_2": "#3DFFB5",
+  "background_dark": "#0A0A0A",
+  "background_light": "#F5F5F5",
+  "text_on_dark": "#FFFFFF",
+  "text_on_light": "#0A0A0A",
+  "caption_default": "#FFFFFF",
+  "caption_highlight": "#FF3DBE",
+  "cta_money_shot": "#3DFFB5"
+}

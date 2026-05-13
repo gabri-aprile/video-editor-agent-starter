@@ -1,0 +1,27 @@
+node_modules/
+.env
+.env.local
+
+# File di lavoro per episodio
+work/*/
+!work/.gitkeep
+
+# Output renderizzati
+output/*.mp4
+output/*.mov
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Claude Code locale
+.claude/settings.local.json
+.claude/projects/
+
+# Font (li scarica ognuno per conto suo per evitare problemi di licenza)
+brand-kit/fonts/*
+!brand-kit/fonts/.gitkeep
