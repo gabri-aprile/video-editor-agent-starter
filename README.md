@@ -173,7 +173,7 @@ Tre scenari realistici per chi pubblica 4 Reel al mese:
 
 **Opzione B** — Git clone:
 ```bash
-git clone https://github.com/GABRIELE-APRILE/video-editor-agent-starter.git mio-agente-video
+git clone https://github.com/gabri-aprile/video-editor-agent-starter.git mio-agente-video
 cd mio-agente-video
 ```
 
