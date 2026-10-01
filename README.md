@@ -1,5 +1,7 @@
 # Guida — Costruisci il tuo agente Video Editor con Claude Code
 
+**Versione 0.4.0** · 1 ottobre 2026 · [cosa è cambiato](CHANGELOG.md)
+
 Questa guida ti porta da zero a un agente Claude Code che monta Reel verticali 9:16 in autonomia: trascrive l'audio, pianifica il b-roll, scarica gli asset, compone la scena in HTML/CSS/GSAP e renderizza in MP4.
 
 L'agente che costruirai è simile per architettura a "VIDEOEDO" (il mio) ma con il **tuo** stile, il **tuo** brand kit, le **tue** regole. La guida ti dà l'impalcatura e l'esempio funzionante — l'estetica la decidi tu.
@@ -68,7 +70,7 @@ I termini "tecnici" che ricorrono. Tienili a portata.
 | **Caption** | I sottotitoli parola per parola che appaiono sincronizzati |
 | **Hook** | I primi 3 secondi del video. Devono "agganciare" lo spettatore |
 | **CTA** | "Call to action" — l'invito finale (segui, salva, commenta) |
-| **fps** | Frame per second. 25 o 30 standard per i Reel |
+| **fps** | Frame per second. Usa 30 (Hyperframes accetta 24, 30, 60: mai 25) |
 | **LUFS** | Unità di misura della "loudness" percepita. Instagram normalizza a -14 LUFS |
 | **dBTP** | True-peak in decibel. Tieni sotto -1 dBTP per evitare distorsione |
 | **Codec H.264** | Compressione video standard accettata da tutti i social |
@@ -94,7 +96,7 @@ I termini "tecnici" che ricorrono. Tienili a portata.
 | **Disco** | 50 GB liberi SSD | 200 GB SSD | Ogni episodio occupa 1-3 GB di file intermedi |
 | **Internet** | 20 Mbps | 100+ Mbps | Download stock + upload finale |
 
-**Tempi indicativi di render** (60s di video, 1080×1920 25fps):
+**Tempi indicativi di render** (60s di video, 1080×1920 30fps):
 - Laptop scarso (4 core, no GPU): 15-25 minuti
 - Laptop decente (8 core, no GPU): 6-10 minuti
 - Workstation seria (12+ core): 3-5 minuti
@@ -266,8 +268,9 @@ Solo se ti servono. Vedi `references/api-providers.md` nel progetto.
 
 Dentro Claude Code scrivi `/nome-comando` per attivare una **skill**. Le skill stanno in `.claude/skills/<nome>.md`.
 
-Lo starter te ne dà 2:
+Lo starter te ne dà 3:
 - `/nuovo-episodio` — avvia la pipeline di un nuovo Reel
+- `/prepara-girato` — sistema il girato prima del montaggio (fotogrammi chiave, silenzi, ritagli)
 - `/render-finale` — checklist + render finale
 
 ### Memoria persistente
@@ -364,38 +367,55 @@ TU:        render finale
 
 ## 13. Best practice di editing
 
+> Qui sotto trovi il riassunto. Le regole complete stanno nella cartella `references/`, ed è lì che le legge il tuo agente:
+>
+> | File | Cosa contiene |
+> |---|---|
+> | `style-guide.md` | l'estetica: formato, layout, colori, font, posizioni |
+> | `editing-pattern.md` | il montaggio: ritmo, hook, speaker, grafiche, documentazione reale |
+> | `caption-parola-per-parola.md` | i sottotitoli, dalla trascrizione alle fasce di posizione |
+> | `gsap-regole.md` | le regole di animazione da non violare mai |
+> | `preparazione-girato.md` | cosa fare al girato **prima** di montarlo |
+> | `tecnica-tela-3d.md` | la sequenza con la camera che vola sulle grafiche |
+> | `audio.md` | musica, effetti sonori, volume finale |
+> | `difetti-noti.md` | i dieci modi in cui un render esce rotto, e la checklist finale |
+> | `metodo-di-lavoro.md` | l'ordine dei passaggi e come dare feedback |
+> | `pipeline.md`, `api-providers.md` | gli script e i servizi esterni |
+
 ### Hook (primi 3s)
 - **Mai testuali**. Sempre immagine concreta: mockup, screenshot, b-roll cinematografico.
 - Il numero lo dice la voce, gli occhi vedono il mondo.
+- Gerarchia delle fonti: generato su misura > scena di film o meme scaricata con `yt-dlp` > stock cinematografico > stock generico (che per l'hook non va mai bene).
+- Cerca l'incastro tra la parola e l'immagine: se la voce dice "trucco" e nello stesso istante cade una maschera, hai fatto centro.
 
 ### Caption
-- Una keyword per frase evidenziata in colore d'accento.
-- Posizione **stabile** per >70% del video.
-- Su fullscreen vertical: caption **sempre in basso**.
+- Una keyword per frase evidenziata in colore d'accento, un secondo colore **solo** per la CTA finale.
+- Posizione **stabile** per >70% del video: ~872 in split, ~1150 in fullscreen.
+- Punteggiatura presa dal copione, non dalla trascrizione.
 - Niente box dietro, solo triple text-shadow.
 - Pausa extra ~180ms dopo `.` `!` `?`.
 
 ### B-roll
 - Cambia ogni 1.5-2.5s. Tagli netti, no fade.
 - **Letteralismo visivo**: voce dice "café" → vedi un café.
-- Tool/SaaS: demo embed > tutorial YouTube > screenshot UI.
+- **Mai riusare lo stesso spezzone** due volte.
+- Tool/SaaS: demo ufficiale o registrazione dell'interfaccia vera > screenshot > mockup inventato. Mai il video di un altro creator.
 
 ### Density
 - Entry animation + idle motion + b-roll che cambia + 8-10 elementi animati per scena.
 - Mai stamp statici fullscreen morti.
 
 ### Audio
-- Normalizza a -14 LUFS, true-peak -1 dBTP:
-  ```
-  ffmpeg -i in.mp4 -af loudnorm=I=-14:TP=-1:LRA=11 -ar 48000 out.mp4
-  ```
+- Normalizza a -14 LUFS, true-peak -1 dBTP, **in due passate** (vedi `references/audio.md`).
+- Musica amplificata alla sorgente e poi abbassata nel mix, effetti sonori sugli eventi delle grafiche e non sui cambi scena.
 
 ### Safe zone social
 - Top 0-280px e bottom 1580-1920px coperti da UI Instagram/TikTok.
 
 ### Workflow
-- **Sempre** quick render 540×960 prima del 1080×1920 finale.
-- Verifica **sempre** ultimo frame con `ffprobe`.
+- **Timeline scritta e approvata prima di montare.**
+- **Sempre** bozza 540×960 + storyboard numerato prima del 1080×1920 finale.
+- Verifica **sempre** primo e ultimo frame con `ffprobe`.
 
 ---
 
@@ -423,6 +443,8 @@ script.txt + voce.mp3 (+ avatar.mp4 opzionale)
 output/epXXX.mp4
 ```
 
+Più due strumenti di controllo, **già funzionanti** (non stub, serve solo ffmpeg): `strisce.mjs` (24 fotogrammi consecutivi di ogni transizione in una striscia) e `fermi.mjs` (quanti secondi del video sono fermi). Si usano nel giro di critica prima della bozza: `references/qualita-del-movimento.md`.
+
 Gli script in `scripts/` sono **stub commentati**. Li implementi insieme all'agente Claude Code.
 
 Dettaglio in `references/pipeline.md`.
@@ -432,11 +454,14 @@ Dettaglio in `references/pipeline.md`.
 ## 15. Checklist pre-pubblicazione
 
 - [ ] Durata 15-90s (sweet spot 30-60s)
-- [ ] Risoluzione 1080×1920, fps 25 o 30
+- [ ] Risoluzione 1080×1920, fps 30 (o 24/60, mai 25)
 - [ ] Audio normalizzato (-14 LUFS, -1 dBTP)
 - [ ] Hook nei primi 3s **senza testo da solo**
 - [ ] Caption leggibili con UI Instagram sopra
 - [ ] Nessun frame nero finale (`ffprobe`)
+- [ ] Strisce sulle transizioni guardate, al massimo un secondo fermo ogni otto (`node scripts/fermi.mjs <video>`)
+- [ ] Nessuna grafica sopra un volto
+- [ ] Il master contiene davvero gli effetti sonori
 - [ ] Voce udibile, BGM non sovrasta
 - [ ] CTA chiara negli ultimi 2-4s
 - [ ] File MP4 < 500 MB (limite IG Reel)
@@ -512,7 +537,7 @@ Usa `npx hyperframes ...` o installa globalmente: `npm install -g hyperframes`.
 Dietro proxy: `PUPPETEER_SKIP_DOWNLOAD=true npm install` + imposta `PUPPETEER_EXECUTABLE_PATH`.
 
 ### Audio sfasato
-Problema di **fps**. Allinea source audio e composition a 25fps.
+Problema di **fps**. Allinea il girato e la composizione allo stesso framerate (30).
 
 ### Caption sgranate
 Font non caricato. Controlla path `@font-face` in `brand-kit/fonts/`.

@@ -23,7 +23,7 @@ Verifica in ordine:
 node scripts/04_render.mjs <ep>
 ```
 
-Output: `work/<ep>/raw.mp4` a 1080×1920 25fps.
+Output: `work/<ep>/raw.mp4` a 1080×1920 30fps.
 
 ## Verifica post-render
 
@@ -31,7 +31,7 @@ Output: `work/<ep>/raw.mp4` a 1080×1920 25fps.
    ```bash
    ffprobe -v error -count_frames -show_entries stream=nb_read_frames work/<ep>/raw.mp4
    ```
-   Confronta con frame attesi (durata × 25fps). Se sfora, trim:
+   Confronta con frame attesi (durata × fps). Se sfora, trim:
    ```bash
    ffmpeg -i raw.mp4 -frames:v <validi> -c copy raw_trimmed.mp4
    ```

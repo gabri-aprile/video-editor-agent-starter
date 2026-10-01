@@ -31,10 +31,15 @@ work/<ep>/
 Prima di procedere, **leggi sempre**:
 - `references/style-guide.md`
 - `references/editing-pattern.md`
+- `references/gsap-regole.md`
 - `brand-kit/colors.json`
 - `brand-kit/typography.json`
 
 Confermare a voce all'utente le scelte estetiche derivate.
+
+## 3-bis. Prepara il girato
+
+Se il girato non è ancora stato preparato, esegui `/prepara-girato` (re-encode con fotogrammi chiave fitti, taglio dei silenzi, ritagli). Saltare questo passo significa ritrovarsi il parlante congelato nelle scene split.
 
 ## 4. Trascrivi
 
@@ -43,6 +48,12 @@ Lancia `node scripts/01_transcribe.mjs <ep>`. Output atteso: `work/<ep>/words.js
 Verifica:
 - numero di parole > 0
 - `duration` corrisponde alla durata del file audio (entro 1s)
+
+## 4-bis. Scrivi la timeline e falla approvare
+
+**Non si monta senza timeline approvata.** Proponi all'utente una lista di scene, una riga ciascuna: intervallo di tempo, layout, tipo di asset, cosa si vede, e una riga che spiega **cosa aggiunge il visual** rispetto a ciò che dice la voce. Se non riesci a scriverla, quel b-roll non serve.
+
+Aspetta l'OK esplicito prima di andare avanti. Riferimento: `references/metodo-di-lavoro.md`.
 
 ## 5. Pianifica b-roll
 
@@ -62,6 +73,8 @@ Lancia `node scripts/03_fetch_assets.mjs <ep>`.
 ## 7. Render preview
 
 Lancia `node scripts/04_render.mjs <ep> --preview` → render rapido 540×960.
+
+Genera anche uno **storyboard numerato**: un fotogramma per scena, in griglia, col numero sopra. Serve all'utente per darti feedback precisi ("scena 7") invece che vaghi.
 
 Mostra all'utente il preview, raccogli feedback.
 

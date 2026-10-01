@@ -56,15 +56,41 @@ output/epXXX.mp4
 
 ## ⚠️ OBBLIGATORIO prima di ogni render
 
-1. **Leggi sempre** `references/style-guide.md` — definisce font, colori, dimensioni caption, posizione overlay
-2. **Leggi sempre** `references/editing-pattern.md` — definisce regole di montaggio
-3. **Brand kit canonico** in `brand-kit/colors.json` e `brand-kit/typography.json`. Non improvvisare colori/font diversi.
-4. **Quick render prima dell'high** — sempre 540×960 di anteprima prima del 1080×1920 finale
+1. **Leggi sempre** `references/style-guide.md` — font, colori, dimensioni caption, posizione overlay
+2. **Leggi sempre** `references/editing-pattern.md` — regole di montaggio
+3. **Leggi sempre** `references/gsap-regole.md` — le regole di animazione non negoziabili. Saltarle è la causa numero uno dei render rotti
+4. **Brand kit canonico** in `brand-kit/colors.json` e `brand-kit/typography.json`. Non improvvisare colori/font diversi.
+5. **Quick render prima dell'high** — sempre 540×960 di anteprima prima del 1080×1920 finale
+6. **Leggi sempre** `references/qualita-del-movimento.md` prima di costruire le grafiche: le tre curve di casa, le sei regole, il giro di critica
+7. **Prima di mandare una bozza**, fai il giro di critica: fotogrammi fermi, `node scripts/strisce.mjs` su ogni transizione, `node scripts/fermi.mjs`. Nel messaggio scrivi quanti difetti hai trovato e cosa resta fermo
+8. **Prima di consegnare**, passa la checklist di `references/difetti-noti.md`
+
+## Le altre reference (leggile quando serve)
+
+| File | Quando |
+|---|---|
+| `references/caption-parola-per-parola.md` | ogni volta che costruisci i sottotitoli |
+| `references/preparazione-girato.md` | prima di toccare il girato: re-encode, tagli dei silenzi, ritagli |
+| `references/tecnica-tela-3d.md` | quando una sequenza ha più grafiche da mostrare di fila |
+| `references/audio.md` | musica, effetti, volume finale |
+| `references/metodo-di-lavoro.md` | l'ordine dei passaggi: timeline → bozza → storyboard → render |
+| `references/pipeline.md` | cosa fa ogni script |
+| `references/api-providers.md` | provider esterni, costi, limiti |
+
+## Regole di lavoro non negoziabili
+
+- **Mai montare senza una timeline scritta e approvata** dall'utente.
+- **Mai il render pieno prima della bozza a bassa risoluzione** approvata.
+- **Mai riusare lo stesso spezzone di b-roll** due volte nello stesso video.
+- **Ogni affermazione ha una fonte a schermo**: documentazione vera, non mockup inventati.
+- **Un evento visivo ogni ~2 secondi.**
+- **Le grafiche non coprono mai un volto**, nemmeno sfocato sullo sfondo del b-roll. Controlla sul fotogramma del b-roll pulito.
+- **Ogni colpo cade sulla sua parola**: i tempi si prendono dalla trascrizione, mai da un episodio clonato.
 
 ## Specifiche tecniche di base (modificale nella tua style-guide)
 
 - Risoluzione: 1080×1920 (9:16)
-- Framerate: 25fps
+- Framerate: 30fps (Hyperframes accetta 24, 30 o 60: mai 25)
 - Durata target: 30-60s
 - Bitrate video: ~10 Mbps H.264
 - Audio: AAC 192kbps, normalizzato a -14 LUFS integrated, true-peak -1 dBTP
