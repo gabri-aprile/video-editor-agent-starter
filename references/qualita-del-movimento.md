@@ -5,13 +5,11 @@
 
 ---
 
-## Da dove viene
+## Perché conta
 
-Abbiamo preso il video di uno studio di motion design (Autostep) e l'abbiamo studiato fotogramma per fotogramma. La sorpresa: era fatto con **la nostra stessa tecnologia**, pagina web + GSAP + browser + ffmpeg. Stessi strumenti che hai tu in questo kit.
+Un montaggio fatto bene e uno che sembra uscito da uno studio non si distinguono per gli strumenti. Quelli che hai in questo kit (pagina web + GSAP + browser + ffmpeg) bastano. Si distinguono per **come si muovono le cose**: come entrano, come si posano, come passano da una scena all'altra.
 
-Quindi la differenza non era lo strumento. Era il **metodo**. E il metodo si copia.
-
-Sono tre cose: le curve giuste, sei regole di regia, e un giro di critica prima di guardare la bozza. Il giro di critica è metà del lavoro, non un controllo in più.
+È la parte su cui abbiamo lavorato di più montando i nostri reel, e qui c'è quello che ne è uscito. Sono tre cose: le curve giuste, sei regole di regia, e un giro di critica prima di guardare la bozza. Il giro di critica è metà del lavoro, non un controllo in più.
 
 ---
 
@@ -100,7 +98,7 @@ E una terza, più piccola: un oggetto che "vola al suo posto" deve arrivare **es
 
 ## 4. Il giro di critica (metà del metodo)
 
-Lo studio che abbiamo studiato aveva un critico per ogni scena. Tu hai il tuo agente. Prima di mandarti una bozza, deve fare **tre passaggi**, in quest'ordine:
+Ogni scena merita un occhio critico prima che la bozza arrivi a te, e quell'occhio è il tuo agente. Prima di mandarti una bozza, deve fare **tre passaggi**, in quest'ordine:
 
 **1. Fotogrammi fermi.** 3-5 istanti per scena, montati in una griglia. Servono a trovare stati iniziali sbagliati, cose fuori posto, inquadrature storte.
 
@@ -120,7 +118,7 @@ Di default guarda la metà alta del quadro (dove stanno le grafiche nel layout s
 node scripts/fermi.mjs renders/bozza.mp4
 ```
 
-Ti dice quanti secondi del video sono **fermi** (nessun movimento visibile) e quanti fotogrammi doppi ci sono in mezzo al movimento (scatti). Riferimento: il video dello studio aveva 6 secondi fermi su 80, il nostro episodio approvato 6 su 57. **La soglia: al massimo un secondo fermo ogni otto.** Se lo superi, guarda le strisce proprio su quei secondi. Con `--fs` misura il quadro intero.
+Ti dice quanti secondi del video sono **fermi** (nessun movimento visibile) e quanti fotogrammi doppi ci sono in mezzo al movimento (scatti). Riferimento: un nostro episodio approvato aveva 6 secondi fermi su 57. **La soglia: al massimo un secondo fermo ogni otto.** Se lo superi, guarda le strisce proprio su quei secondi. Con `--fs` misura il quadro intero.
 
 Entrambi gli strumenti usano solo ffmpeg, funzionano su qualsiasi video 1080×1920 a 30 fps, non dipendono da niente altro di questo kit.
 

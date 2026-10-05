@@ -6,9 +6,9 @@ Il registro degli aggiornamenti del kit. Ogni versione dice **cosa è cambiato**
 
 ## v0.4.0 — 1 ottobre 2026
 
-Sei settimane, più di cento episodi montati. Stavolta la novità grossa non è una regola in più: è **un modo diverso di muovere le cose**. Abbiamo preso il video di uno studio di motion design, l'abbiamo smontato fotogramma per fotogramma e abbiamo scoperto che usava la nostra stessa tecnologia. Cambiava il metodo. E il metodo adesso è nel kit.
+Sei settimane, più di cento episodi montati. Stavolta la novità grossa non è una regola in più: è **un modo diverso di muovere le cose**. È la parte su cui abbiamo lavorato di più montando i nostri reel, e adesso è nel kit.
 
-### ⭐ La qualità del movimento (il metodo Autostep)
+### ⭐ La qualità del movimento
 
 **Cosa:** un file nuovo, `references/qualita-del-movimento.md`, e due strumenti già funzionanti in `scripts/`: `strisce.mjs` e `fermi.mjs`.
 

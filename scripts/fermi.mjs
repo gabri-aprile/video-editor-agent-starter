@@ -1,8 +1,8 @@
 // fermi.mjs — quanti SECONDI FERMI ha il montaggio.
 // Differenza media fra fotogrammi consecutivi nella fascia alta (0-984, dove stanno le grafiche nel layout split),
 // secondo per secondo. Un secondo sotto 0,2 è fermo.
-// Riferimento: il video di studio che abbiamo analizzato, 6 secondi fermi su 80; un nostro episodio approvato, 6 su 57.
-// Stampa anche i fotogrammi DOPPI in mezzo al movimento (scatti): nel riferimento 1 su 2396.
+// Riferimento: un nostro episodio approvato, 6 secondi fermi su 57.
+// Stampa anche i fotogrammi DOPPI in mezzo al movimento (scatti): in quell'episodio 1.
 // Spiegazione completa: references/qualita-del-movimento.md, sezione 4.
 //
 // Uso (dalla cartella del progetto): node scripts/fermi.mjs renders/bozza.mp4 [--fs]   (--fs = quadro intero)
