@@ -1,6 +1,6 @@
 # API Providers — cheatsheet
 
-Note pratiche sui provider esterni usati nella pipeline. Aggiornato a maggio 2026.
+Note pratiche sui provider esterni usati nella pipeline. Aggiornato a ottobre 2026.
 
 ---
 
@@ -14,13 +14,25 @@ Note pratiche sui provider esterni usati nella pipeline. Aggiornato a maggio 202
 - **Costo indicativo**: $0.10-0.50 per episodio
 - **Tip**: usa **prompt caching** per la system prompt che contiene style-guide + editing-pattern. Risparmio 80-90%.
 
-## Pexels
+## Pixabay
 
 - **Cosa**: stock footage gratuito
+- **Chiave**: gratis. Registrati su pixabay.com, poi apri `https://pixabay.com/api/docs/`: la chiave è già scritta nella tabella dei parametri, alla voce `key`
+- **Endpoint**: `https://pixabay.com/api/videos/?key=<API_KEY>&q=<query>&per_page=<3-200>&safesearch=true`
+- **Risposta**: `hits[]`, ognuna con `videos.large / medium / small / tiny` (`url`, `width`, `height`), `duration`, `pageURL`, `user`
+- **Limite**: 100 richieste al minuto. Le risposte vanno tenute in cache 24 ore e le clip vanno scaricate, non linkate
+- **Tip**: Pixabay non filtra i video per verso. Chiedi 20-40 risultati e tieni quelli con `height > width`
+- **Tip**: `videos.large` a volte è vuoto (`url` ""): prendi la versione più grande che ha un url
+- **Tip**: scarta le clip con `isAiGenerated` o `isLowQuality` a true. Le query in inglese trovano di più
+- **Licenza**: uso gratuito anche commerciale, si possono modificare, citare l'autore non è obbligatorio. Non si rivendono le clip così come sono e non si usano a fini commerciali quelle con marchi o loghi riconoscibili
+
+## Pexels (solo chi ha già la chiave)
+
+Dal 26 ottobre 2026 Pexels non dà più chiavi nuove. Quelle esistenti funzionano ancora.
+
 - **Endpoint**: `https://api.pexels.com/videos/search`
 - **Auth**: header `Authorization: <API_KEY>`
-- **Limite**: 200 req/ora, 20'000/mese (gratis)
-- **Tip**: filtra per `orientation=portrait` e `size=large` per avere clip 9:16 utilizzabili senza ritagli pesanti
+- **Tip**: filtra per `orientation=portrait` e `size=large`
 
 ## KIE.ai
 
@@ -65,7 +77,7 @@ Note pratiche sui provider esterni usati nella pipeline. Aggiornato a maggio 202
 
 ## Pattern di costo per episodio (60s, ~25 clip b-roll)
 
-| Profilo | Pexels | KIE | Whisper | Claude | TOTALE |
+| Profilo | Pixabay | KIE | Whisper | Claude | TOTALE |
 |---------|--------|-----|---------|--------|--------|
 | **Frugal** (solo stock) | gratis | 0 | $0.006 | $0.20 | ~$0.20 |
 | **Misto** (80% stock, 20% AI) | gratis | $2.00 | $0.006 | $0.30 | ~$2.30 |

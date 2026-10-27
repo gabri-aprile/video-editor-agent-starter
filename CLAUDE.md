@@ -26,7 +26,7 @@ script.txt + voce.mp3 (+ avatar.mp4 opzionale)
 02 Plan b-roll               (Claude API: keyword + tipo asset)
    │
    ▼
-03 Fetch asset               (Pexels + KIE.ai + scraping)
+03 Fetch asset               (Pixabay + KIE.ai + scraping)
    │
    ▼
 04 Render Hyperframes        (HTML + CSS + GSAP → MP4)
@@ -43,7 +43,7 @@ output/epXXX.mp4
 - **Hyperframes** (HeyGen open source) — composizione video HTML+CSS+GSAP → MP4
 - **ffmpeg** — post-processing finale, normalizzazione loudness
 - **faster-whisper** (Python) o Whisper API — trascrizione word-level
-- **Pexels API** — stock footage gratuito
+- **Pixabay API** — stock footage gratuito (chiave `PIXABAY_API_KEY`). Pexels solo se l'utente ha già una chiave: dal 26/10/2026 non ne dà di nuove
 - **KIE.ai** — Seedance, Kling, Nano Banana per b-roll AI (opzionale, a pagamento)
 - **Anthropic API** — pianificazione b-roll, scelta keyword highlight
 
@@ -51,7 +51,7 @@ output/epXXX.mp4
 
 - Ogni esecuzione = un **Episodio** con ID progressivo (`ep001`, `ep002`, ...)
 - File intermedi in `work/<episode_id>/`, output finale in `output/<episode_id>.mp4`
-- Naming asset: `<episode_id>_<tipo>_<indice>.<ext>` (es. `ep001_broll_pexels_3.mp4`)
+- Naming asset: `<episode_id>_<tipo>_<indice>.<ext>` (es. `ep001_broll_pixabay_3.mp4`)
 - Brand kit fisso in `brand-kit/`. Modificarlo solo previa approvazione utente.
 
 ## ⚠️ OBBLIGATORIO prima di ogni render

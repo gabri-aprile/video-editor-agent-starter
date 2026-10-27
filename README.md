@@ -1,6 +1,6 @@
 # Guida — Costruisci il tuo agente Video Editor con Claude Code
 
-**Versione 0.4.0** · 1 ottobre 2026 · [cosa è cambiato](CHANGELOG.md)
+**Versione 0.5.0** · 27 ottobre 2026 · [cosa è cambiato](CHANGELOG.md)
 
 Questa guida ti porta da zero a un agente Claude Code che monta Reel verticali 9:16 in autonomia: trascrive l'audio, pianifica il b-roll, scarica gli asset, compone la scena in HTML/CSS/GSAP e renderizza in MP4.
 
@@ -77,7 +77,7 @@ I termini "tecnici" che ricorrono. Tienili a portata.
 | **GSAP** | Libreria JavaScript per animare elementi HTML (la usa Hyperframes) |
 | **Headless Chrome** | Chrome senza interfaccia grafica, usato per render automatici |
 | **Word-level timestamps** | Per ogni parola trascritta, l'istante esatto di inizio e fine |
-| **Stock footage** | Video pre-girati liberi da diritti (Pexels, Pixabay, ecc.) |
+| **Stock footage** | Video pre-girati liberi da diritti (Pixabay, Pexels, ecc.) |
 | **TTS** | Text-to-speech (la voce sintetica) |
 | **API key** | Chiave segreta per accedere a un servizio a pagamento. Mai pubblicarla |
 | **Prompt caching** | Sconto Anthropic sui pezzi di prompt che riusi spesso (–90%) |
@@ -132,7 +132,7 @@ Se uno di questi non risponde, fermati e installalo prima di andare avanti.
 
 **Account**:
 - Anthropic (obbligatorio) → [console.anthropic.com](https://console.anthropic.com/)
-- Pexels (gratis, consigliato) → [pexels.com/api](https://www.pexels.com/api/)
+- Pixabay (gratis, consigliato) → [pixabay.com/api/docs](https://pixabay.com/api/docs/)
 - KIE.ai, ElevenLabs, HeyGen, Apify (opzionali)
 
 ---
@@ -143,14 +143,14 @@ Tre scenari realistici per chi pubblica 4 Reel al mese:
 
 ### Frugal (~5-12 €/mese)
 - Anthropic API + Claude Code: ~5-10 €/mese (basato sull'uso)
-- Pexels: gratis
+- Pixabay: gratis
 - Trascrizione: locale (faster-whisper) gratis, o Whisper API 0.20 €/mese
 - Voce e avatar: registri te stesso col telefono
 - **Totale: 5-12 €**
 
 ### Misto (~25-40 €/mese)
 - Anthropic + Claude Code: 10-15 €
-- Pexels: gratis
+- Pixabay: gratis
 - KIE.ai per 30% dei b-roll: 10-15 €
 - ElevenLabs Starter: 5 € (se usi TTS)
 - **Totale: 25-40 €**
@@ -201,7 +201,7 @@ copy .env.example .env
 cp .env.example .env
 ```
 
-Apri `.env` con un editor di testo. Riempi almeno `ANTHROPIC_API_KEY` e `PEXELS_API_KEY`. Le altre lasciale vuote.
+Apri `.env` con un editor di testo. Riempi almeno `ANTHROPIC_API_KEY` e `PIXABAY_API_KEY`. Le altre lasciale vuote.
 
 ### 6.4 Verifica Claude Code
 
@@ -227,15 +227,17 @@ ANTHROPIC_API_KEY=sk-ant-...
 
 Aggiungi 5-10 € di credito su "Plans & Billing" per iniziare. Anthropic mostra spese in tempo reale.
 
-### 7.2 Pexels (gratis, consigliata)
+### 7.2 Pixabay (gratis, consigliata)
 
-[pexels.com](https://www.pexels.com/) → registrati → [pexels.com/api](https://www.pexels.com/api/) → "Get Started" → API key.
+[pixabay.com](https://pixabay.com/) → registrati → apri [pixabay.com/api/docs](https://pixabay.com/api/docs/). Da loggato, la tua chiave è già scritta nella tabella dei parametri, alla voce **key**.
 
 ```
-PEXELS_API_KEY=...
+PIXABAY_API_KEY=...
 ```
 
-Limite gratis: 200 richieste/ora, 20.000/mese.
+Limite gratis: 100 richieste al minuto.
+
+Hai già una chiave Pexels? Mettila in `PEXELS_API_KEY`: funziona ancora. Una nuova non si può più fare, dal 26 ottobre 2026 Pexels non le dà.
 
 ### 7.3 KIE.ai (opzionale, a pagamento)
 
@@ -431,7 +433,7 @@ script.txt + voce.mp3 (+ avatar.mp4 opzionale)
 02_plan_broll.mjs     →  Claude API decide tipo b-roll
         │
         ▼
-03_fetch_assets.mjs   →  Pexels + KIE.ai + scraping
+03_fetch_assets.mjs   →  Pixabay + KIE.ai + scraping
         │
         ▼
 04_render.mjs         →  Hyperframes HTML+CSS+GSAP → MP4
@@ -593,8 +595,8 @@ sudo chown -R $USER /usr/local/lib/node_modules
 - Lottie: https://lottiefiles.com/
 
 ### Stock e AI
-- Pexels: https://www.pexels.com/api/
 - Pixabay: https://pixabay.com/api/docs/
+- Pexels: https://www.pexels.com/api/ (solo chiavi già esistenti)
 - KIE.ai: https://kie.ai/
 
 ### Trascrizione

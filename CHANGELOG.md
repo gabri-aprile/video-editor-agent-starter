@@ -4,6 +4,18 @@ Il registro degli aggiornamenti del kit. Ogni versione dice **cosa è cambiato**
 
 ---
 
+## v0.5.0 — 27 ottobre 2026
+
+### 🔑 La chiave dei video gratis ora è Pixabay
+
+**Cosa:** il kit prende i video d'archivio da Pixabay invece che da Pexels. Cambiano `.env.example`, `CLAUDE.md`, il README, `references/api-providers.md` e gli esempi dentro `scripts/03_fetch_assets.mjs`.
+
+**Perché ti conviene:** dal 26 ottobre Pexels non dà più chiavi nuove. Chi installava il kit da zero si trovava bloccato al primo passo. La chiave Pixabay è gratis e la trovi già scritta nella pagina dell'API appena entri.
+
+**Cosa devi fare:** se hai già una chiave Pexels, niente: continua a funzionare. Se non ce l'hai, registrati su pixabay.com, apri https://pixabay.com/api/docs/, copia la chiave dalla voce «key» e mettila in `.env` come `PIXABAY_API_KEY`. Poi di' al tuo agente: *«per i b-roll d'archivio usa Pixabay, le regole sono in references/api-providers.md»*.
+
+---
+
 ## v0.4.0 — 1 ottobre 2026
 
 Sei settimane, più di cento episodi montati. Stavolta la novità grossa non è una regola in più: è **un modo diverso di muovere le cose**. È la parte su cui abbiamo lavorato di più montando i nostri reel, e adesso è nel kit.

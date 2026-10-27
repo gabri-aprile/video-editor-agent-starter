@@ -4,7 +4,7 @@
 // Output: work/<ep>/assets/*.mp4|.png + work/<ep>/assets.json (manifest)
 //
 // Per ogni segmento:
-//   - broll_type=stock     → Pexels API video search → download top match 9:16
+//   - broll_type=stock     → Pixabay API video search → tieni le clip verticali → download
 //   - broll_type=ai        → KIE.ai (Seedance Fast con prompt=broll_query)
 //   - broll_type=screenshot → Apify website-screenshot-crawler oppure curl + headless Chrome
 //   - broll_type=mockup    → marca come "render in HTML" — verrà generato in step 04
@@ -14,10 +14,10 @@
 //
 // Schema assets.json:
 // {
-//   "ep001_broll_pexels_0": {
+//   "ep001_broll_pixabay_0": {
 //     "segment_id": 0,
-//     "file": "assets/ep001_broll_pexels_0.mp4",
-//     "source": "pexels",
+//     "file": "assets/ep001_broll_pixabay_0.mp4",
+//     "source": "pixabay",
 //     "source_id": 1234567,
 //     "duration": 8.5
 //   },
@@ -33,10 +33,13 @@ if (!ep) {
   exit(1);
 }
 
-// Endpoint Pexels esempio:
-// const res = await fetch(`https://api.pexels.com/videos/search?query=${encodeURIComponent(q)}&orientation=portrait&size=large&per_page=5`, {
-//   headers: { Authorization: process.env.PEXELS_API_KEY }
-// });
+// Endpoint Pixabay esempio (non filtra per verso: chiedine di più e tieni quelle con height > width):
+// const res = await fetch(`https://pixabay.com/api/videos/?key=${process.env.PIXABAY_API_KEY}&q=${encodeURIComponent(q)}&per_page=30&safesearch=true`);
+// const { hits } = await res.json();
+// per ogni hit: la versione più grande fra hit.videos.large/medium/small che ha un url (large a volte è vuoto)
+//
+// Pexels solo se hai già una chiave (dal 26/10/2026 non ne dà di nuove):
+// fetch(`https://api.pexels.com/videos/search?query=...&orientation=portrait`, { headers: { Authorization: process.env.PEXELS_API_KEY } })
 
 // Endpoint KIE Seedance esempio:
 // const res = await fetch('https://kieai.erweima.ai/api/v1/seedance/generate', {

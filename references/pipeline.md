@@ -55,7 +55,7 @@ Formato output:
 }
 ```
 
-`broll_type` può essere: `stock` (Pexels), `ai` (KIE.ai), `screenshot` (Apify/manuale), `mockup` (CSS custom), `archive` (footage di repertorio).
+`broll_type` può essere: `stock` (Pixabay), `ai` (KIE.ai), `screenshot` (Apify/manuale), `mockup` (CSS custom), `archive` (footage di repertorio).
 
 **Prompt Claude consigliato**: leggi `style-guide.md` + `editing-pattern.md` + lo script, poi decidi per ogni segmento il tipo di b-roll più adatto seguendo le regole di letteralismo visivo.
 
@@ -68,7 +68,7 @@ Formato output:
 **Output**: `work/<ep>/assets/` con tutti i file scaricati + `assets.json` (manifest)
 
 Per ogni segmento del plan:
-- `stock` → API Pexels (query → search → download top match in 9:16)
+- `stock` → API Pixabay (query in inglese → search → tieni le clip verticali → download della versione più grande)
 - `ai` → API KIE.ai (Seedance Fast con prompt = `broll_query`)
 - `screenshot` → Apify actor "Website Screenshot" o equivalente
 - `mockup` → marca come "da generare in HTML" nel render step

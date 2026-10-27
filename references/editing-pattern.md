@@ -8,7 +8,7 @@ Questo file definisce **come** monti i video, non come si vedono (quello è `sty
 
 **Il b-roll mostra ciò che la voce dice.**
 
-- Voce dice "café" → in scena un café (Pexels)
+- Voce dice "café" → in scena un café (Pixabay)
 - Voce dice "spreadsheet" → screenshot di uno spreadsheet
 - Voce dice "Andrea ha detto" → bolla chat con il nome "Andrea"
 - Voce dice un numero (es. "30%") → il numero ANIMATO, non statico
@@ -20,7 +20,7 @@ Evita astrazioni quando la voce è concreta.
 | Voce dice... | Asset migliore | Fallback |
 |--------------|----------------|----------|
 | Tool/SaaS/sito | Screenshot reale o demo embed delle docs | Mockup CSS custom |
-| Persona/azione | Stock Pexels | Video AI Seedance/Kling |
+| Persona/azione | Stock Pixabay | Video AI Seedance/Kling |
 | Concetto astratto | Motion graphics testuale | Stock metaforico |
 | Dato/statistica | Numero animato + screenshot fonte | Bar chart custom |
 | Citazione | Card con nome + foto autore | Caption hero |
